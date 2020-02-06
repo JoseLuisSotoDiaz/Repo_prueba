@@ -28,21 +28,29 @@ int main(void) {
 	local_int = 0;
 
 	for (int i = local_a; i <= local_b; i++ ){
-		if((i%2 == 0)){
-			i=i*1;
-		}else{
+		int m=1;
+		int b;
+		for(int b=m;b<=i;b++){
 
-			local_int=local_int+i;
+			if((i%b==0)){
+				m=m+1;
+			}
+
 		}
+		if(m==3){
+					local_int=local_int+i;
+				}
+
 	}
+
 
 	MPI_Reduce(&local_int, &total_int, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
 
 	if ( my_rank == 0) {
 		if(n>1){
-			printf("La suma de primos es: %d\n", total_int + 2);
+			printf("La suma de primos es: %d\n", total_int +1);
 		}else{
-			printf("La suma de primos es: %d\n", total_int);
+			printf("La suma de primos es 1");
 		}
 
 	}
